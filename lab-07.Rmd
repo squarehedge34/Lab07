@@ -73,16 +73,16 @@ bty_avg and score are linearly related?
 
 4. Interpret the intercept of the linear model in context of the data. Comment on whether or not the intercept makes sense in this context.
 
-*Add your interpretation here*
+At the lecturer is considered to be more attractive they are more likely to recive higher scores. The intersect states that as no matter what the lectures will still recive highe scores. It can be interpreted that looks don't have a large role in score. 
 
 5. Determine the $R^2$ of the model and interpret it in the context of the data.
 
-```{r R2, eval = FALSE}
+```{r R2,}
 # remove eval = FALSE from the code chunk options after filling in the blanks
-glance(___)$___
+glance(score_bty_fit)$r.squared
 ```
 
-*Add your interpretation here*
+There is a small amount of variation in the responses.
 
 6. Make a plot of residuals vs. predicted values for the model above.
 
@@ -90,7 +90,9 @@ glance(___)$___
 # remove eval = FALSE from the code chunk options after filling in the blanks
 score_bty_aug <- augment(score_bty_fit$fit)
 
-ggplot(___) + ...
+ggplot(score_bty_aug, aes(.fitted,.resid)) +
+  geom_jitter()+
+  geom_hline(yintercept = 0, lty = 'dashed', color = 'blue')
 ```
 
 # Exercise 3: Simple Linear regression with a categorical predictor
