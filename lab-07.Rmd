@@ -24,46 +24,52 @@ evals<-read.csv("data/evals.csv", row.names=1)
 1.  Visualize the distribution of `score` in the dataframe `evals`.
 
 ```{r viz-score}
-# add code here
+ggplot(evals,aes(x =score,))+
+  geom_histogram()
 ```
 
-*Add your other details and narratives here.*
+Most students rate the course highly, this would be expected as students are most likly taking courses they are going to enjoy.
+
 
 2.  Visualize and describe the relationship between `score` and `bty_avg` using `geom_point()` to represent the data. 
 
 ```{r scatterplot}
-# add code here
+ggplot(evals,aes(score, bty_avg))+
+         geom_point()
+
+ggplot(evals,aes(score, bty_avg))+
+  geom_jitter()
 ```
 
-*Add your narrative and other details here.*
+There doesn't appear to be any relationship between the variables, looks similar to previous graphs. Jitter adds a small amount of variation to each data point. The First plot is misleading in the way it didn't fully show the frequency of the higher points and hid points making the data look a lot more different then in reality.
 
 # Exercise 2: Simple Linear regression with a numerical predictor
 
 1. Fit a linear model called `score_bty_fit` to predict average professor evaluation `score` from average beauty rating (`bty_avg`). Print the regression output using `tidy()`.
 
-```{r fit-score_bty_fit, eval = FALSE}
-# remove eval = FALSE from the code chunk options after filling in the blanks
+```{r fit-score_bty_fit}
 score_bty_fit <- linear_reg() %>%
   set_engine("lm") %>%
-  fit(___ ~ ___, data = ___)
+  fit(score ~ bty_avg, data = evals)
 ```
 
-```{r tidy-score_bty_fit, eval = FALSE}
-# remove eval = FALSE from the code chunk options after filling in the blanks
-tidy(___)
+```{r tidy-score_bty_fit}
+tidy(score_bty_fit)
 ```
 
-*Add your linear model here. Don't worry too much about notation, you can use things like score-hat.*
+score = b0 + b1*(bty_avg)
 
 2. Plot the data again using `geom_jitter()`, and add the regression line.
 
 ```{r viz-score_bty_fit,eval=FALSE}
-# add your plot here. Hint, you can add the regression line using geom_smooth()
+ggplot(evals, mapping = aes(bty_avg,score))+
+  geom_jitter()+
+  geom_smooth(method = "lm")
 ```
 
 3. Interpret the slope of the linear model in context of the data.
 
-*Add your interpretation here*
+bty_avg and score are linearly related?
 
 4. Interpret the intercept of the linear model in context of the data. Comment on whether or not the intercept makes sense in this context.
 
